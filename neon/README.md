@@ -62,3 +62,11 @@ npm run benchmark
 ```
 
 It measures a synthetic 1920x1080 frame mapped to a 320x180 cell grid. The report includes decoding, grid sampling, optical flow, temporal smoothing, auto-levels, matte extraction, glyph atlas work, particles, audio analysis, terminal diffing, and total frame time.
+
+## Troubleshooting
+
+- If the preview is blank, use a current Chromium-based browser with WebGPU enabled and open the app through the Vite server rather than a `file://` URL.
+- If a video does not load, try a browser-supported file format and confirm that the page has finished loading before selecting the file again.
+- If the build fails after changing dependencies, remove the local install and run `npm install` again, then retry `npm run build`.
+- If rendering output changes unexpectedly, run `npm test` to check the golden palette, glyph, and smoothing cases.
+- If offline export fails, confirm that the input video exists and that `--frames`, `--input`, and `--output` each have a value.
