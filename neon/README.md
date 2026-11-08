@@ -13,3 +13,23 @@ Verify the TypeScript checks and production bundle with:
 ```bash
 npm run build
 ```
+
+## Usage
+
+Start the development server and open the local URL shown by Vite:
+
+```bash
+npm run dev
+```
+
+For the terminal player, pass a video path after the script separator:
+
+```bash
+npm run terminal -- video.mp4
+```
+
+To render deterministic frames offline and mux the source audio into an MP4:
+
+```bash
+npm run offline -- --frames neon-ascii-frames.zip --input video.mp4 --output out.mp4
+```
