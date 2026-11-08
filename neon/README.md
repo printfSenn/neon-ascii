@@ -43,3 +43,12 @@ npm run offline -- --frames neon-ascii-frames.zip --input video.mp4 --output out
 - `M` toggles microphone reactivity.
 - `R` starts or stops recording.
 - `?` opens the shortcut list.
+
+## Architecture
+
+- `src/main.ts` connects the browser UI, media inputs, render loop, recording, and settings.
+- `src/core.ts` owns the frame state, glyph selection, palette sampling, temporal smoothing, motion, and particles.
+- `src/shaders.ts` contains the WebGPU shader stages used to render the ASCII atlas and effects.
+- `src/style.css` defines the player layout, controls, themes, and responsive states.
+- `terminal.mjs` provides the diff-based ANSI player, while `offline.mjs` renders deterministic frames for export.
+- `golden.mjs` checks stable rendering outputs and `bench.mjs` reports stage timings.
