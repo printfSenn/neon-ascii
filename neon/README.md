@@ -33,3 +33,13 @@ To render deterministic frames offline and mux the source audio into an MP4:
 ```bash
 npm run offline -- --frames neon-ascii-frames.zip --input video.mp4 --output out.mp4
 ```
+
+## Shortcuts
+
+- `T` toggles theatre mode.
+- `F` toggles fullscreen.
+- `Space` plays or pauses the video.
+- `Left` and `Right` seek five seconds.
+- `M` toggles microphone reactivity.
+- `R` starts or stops recording.
+- `?` opens the shortcut list.
