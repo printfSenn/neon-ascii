@@ -52,3 +52,13 @@ npm run offline -- --frames neon-ascii-frames.zip --input video.mp4 --output out
 - `src/style.css` defines the player layout, controls, themes, and responsive states.
 - `terminal.mjs` provides the diff-based ANSI player, while `offline.mjs` renders deterministic frames for export.
 - `golden.mjs` checks stable rendering outputs and `bench.mjs` reports stage timings.
+
+## Benchmark
+
+Run the deterministic benchmark from this directory:
+
+```bash
+npm run benchmark
+```
+
+It measures a synthetic 1920x1080 frame mapped to a 320x180 cell grid. The report includes decoding, grid sampling, optical flow, temporal smoothing, auto-levels, matte extraction, glyph atlas work, particles, audio analysis, terminal diffing, and total frame time.
