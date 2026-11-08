@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>neon ascii</title>
+</head>
+
+<body>
+  <header>
+    <h1>NEON//ASCII PIPELINE</h1><span id="fps">-- fps</span>
+  </header>
+  <main id="app">
+    <section class="left">
+      <div class="stage"><canvas id="out" width="1280" height="720"></canvas></div>
+      <div class="timeline"><button id="play">pause</button><input id="seek" type="range" min="0" max="1000"
+          value="0"><span id="time">live</span><select id="speed">
+          <option value="0.5">0.5x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2x</option>
+        </select></div>
+      <div id="message">drop a video on the player</div>
+      <div class="bar"><button id="demo" class="on" title="use the animated demo source">demo</button><button
+          id="camera" title="use the webcam source">webcam</button><label class="btn">load video<input id="file"
+            type="file" accept="video/*" hidden></label><button id="mic">mic reactive</button><button
+          id="record">record</button><button id="mp4">mp4</button><button id="gif">gif</button><button id="frames">png
+          sequence</button><button id="snapshot">snapshot</button><button id="reset">reset</button></div>
+    </section>
+    <aside class="right">
+      <div class="palette">
+        <div class="palette-head"><b>palette</b><select id="palette">
+            <option value="violet">violet + emerald</option>
+            <option value="toxic">toxic emerald</option>
+            <option value="ultra">ultraviolet</option>
+            <option value="mono-green">mono green</option>
+            <option value="mono-violet">mono violet</option>
+            <option value="custom">custom</option>
+          </select></div>
+        <div id="saved-palette" class="saved-palette"><span class="saved-swatches"><i id="saved-primary"></i><i
+              id="saved-accent"></i></span><button id="edit-palette" aria-label="edit saved palette">edit</button></div>
+        <div class="palette-json"><button id="export-palette">export json</button><label class="btn">import json<input
+              id="import-palette" type="file" accept="application/json" hidden></label></div>
+        <div class="picker">
+          <label class="tone">tones <select id="tone">
+              <option value="2">2 tones</option>
+              <option value="1">1 tone</option>
+            </select></label>
+          <div class="swatches"><button id="primary" class="on"><i id="primary-swatch"></i>primary</button><button
+              id="accent"><i id="accent-swatch"></i>accent</button></div>
+          <div id="color-square"><span id="color-dot"></span></div>
+          <div id="hue-bar"><span id="hue-dot"></span></div>
+          <label class="hex"><span>#</span><input id="hex" maxlength="6" spellcheck="false"></label>
+          <button id="save-palette">save</button>
+        </div>
+      </div>
+      <div class="grid">
+        <label>columns <input id="columns" data-tip="character count per row" type="range" min="60" max="320"
+            value="180"></label>
+        <label>smoothing <input id="smoothing" data-tip="temporal luminance average" type="range" min="0" max="90"
+            value="45"></label>
+        <label>contrast <input id="contrast" data-tip="luminance contrast" type="range" min="50" max="220"
+            value="115"></label>
+        <label>glow <input id="glow" data-tip="neon bloom strength" type="range" min="0" max="100" value="70"></label>
+        <label>edge <input id="edge" data-tip="sobel edge glyph strength" type="range" min="0" max="100"
+            value="55"></label>
+        <label>trail <input id="trail" data-tip="afterglow persistence" type="range" min="0" max="100"
+            value="40"></label>
+        <label>charset <select id="charset" data-tip="glyph atlas set">
+            <option value="classic">classic</option>
+            <option value="dense">dense</option>
+            <option value="blocks">blocks</option>
+            <option value="kana">matrix kana</option>
+          </select></label>
+        <label>debug view <select id="debug" data-tip="pipeline inspection view">
+            <option value="full">full palette</option>
+            <option value="raw">raw luminance grid</option>
+            <option value="atlas">glyph atlas</option>
+            <option value="white">glyphs only</option>
+          </select></label>
+        <label>speed preset <select id="preset" data-tip="quality governor preset">
+            <option value="custom">custom</option>
+            <option value="fast">max fps</option>
+            <option value="balanced">balanced</option>
+            <option value="quality">max quality</option>
+          </select></label>
+        <label>render quality <select id="quality" data-tip="render resolution">
+            <option value="1">standard</option>
+            <option value="1.6" selected>HD</option>
+            <option value="2.2">ultra HD</option>
+          </select></label>
+        <label>hue shift <input id="hue" data-tip="output hue rotation" type="range" min="0" max="360"
+            value="0"></label>
+        <label>glitch <input id="glitch" data-tip="random tearing" type="range" min="0" max="100" value="0"></label>
+        <label>rays <input id="rays" data-tip="light shaft strength" type="range" min="0" max="100" value="25"></label>
+        <label>sparks <input id="sparks" data-tip="motion spark strength" type="range" min="0" max="100"
+            value="60"></label>
+        <label><span><input id="scanlines" data-tip="crt scanlines" type="checkbox"> crt scanlines</span></label>
+        <label><span><input id="rain" data-tip="matrix rain" type="checkbox"> matrix rain backdrop</span></label>
+        <label><span><input id="cycle" data-tip="auto hue" type="checkbox"> auto hue cycle</span></label>
+        <label><span><input id="spotlight" data-tip="cursor light" type="checkbox" checked> cursor
+            spotlight</span></label>
+        <label><span><input id="wireframe" data-tip="edge glyphs only" type="checkbox"> wireframe</span></label>
+        <label><span><input id="auto" data-tip="lower quality below 30 fps" type="checkbox" checked> auto
+            quality</span></label>
+        <label><span><input id="invert" data-tip="invert luminance" type="checkbox"> invert</span></label>
+        <label><span><input id="mirror" data-tip="mirror webcam" type="checkbox" checked> mirror webcam</span></label>
+      </div>
+    </aside>
+  </main>
+  <div id="tip"></div>
+  <div id="help"><b>shortcuts</b><br>t theatre mode<br>f fullscreen<br>space play / pause<br>left / right seek 5s<br>m
+    mic reactive<br>r record<br>? help</div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

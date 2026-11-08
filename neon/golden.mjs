@@ -1,0 +1,25 @@
+const close = (a, b) => Math.abs(a - b) < .001;
+const palette = (p, s, tone = 2) => {
+  const stops = tone === 1 ? [[0, p.map(v => v * .16)], [.35, p.map(v => v * .55)], [.65, p], [1, p.map(v => v + (255 - v) * .6)]] : [[0, p.map(v => v * .16)], [.3, p.map(v => v * .62)], [.55, p], [.75, s], [1, s.map(v => v + (255 - v) * .6)]];
+  return Array.from({ length: 32 }, (_, i) => { const t = i / 31; let a = stops[0], b = stops.at(-1); for (let j = 1; j < stops.length; j++) if (t <= stops[j][0]) { a = stops[j - 1]; b = stops[j]; break; } const k = (t - a[0]) / (b[0] - a[0]); return a[1].map((v, n) => v + (b[1][n] - v) * k); });
+};
+const violet = palette([16, 220, 140], [168, 85, 255]);
+const monoGreen = palette([0, 200, 120], [168, 85, 255], 1);
+if (!violet[0].every((v, i) => close(v, [2.56, 35.2, 22.4][i]))) throw new Error('palette low');
+if (!violet[31].every((v, i) => close(v, [220.2, 187, 255][i]))) throw new Error('palette high');
+if (!monoGreen[11].every((v, i) => close(v, [0, 111.4516, 66.871][i]))) throw new Error('one tone middle');
+if (!monoGreen[20].every((v, i) => close(v, [0, 198.5484, 119.129][i]))) throw new Error('one tone primary');
+if (!monoGreen[31].every((v, i) => close(v, [153, 233, 201][i]))) throw new Error('one tone high');
+const smooth = [0, .25, .5, 1].map(v => v * .45 + .8 * .55);
+if (!close(smooth[0], .44) || !close(smooth[3], .89)) throw new Error('smooth');
+const shapes = [[0, 0, 0, 0, 0, 0], [.3, .3, .3, .3, .3, .3], [1, 1, 1, 1, 1, 1], [1, 0, 1, 0, 1, 0]];
+const match = target => shapes.map((shape, glyph) => [shape.reduce((sum, value, i) => sum + (value - target[i]) ** 2, 0), glyph]).sort((a, b) => a[0] - b[0])[0][1];
+if (match([1, 0, 1, 0, 1, 0]) !== 3) throw new Error('shape glyph');
+if (match([.3, .3, .3, .3, .3, .3]) !== 1) throw new Error('tone glyph');
+const output = violet.map((rgb, i) => rgb.map(v => Math.round(v)).join(',')).join('|');
+if (!output.startsWith('3,35,22|') || !output.endsWith('220,187,255')) throw new Error('palette output');
+console.log('golden palette ok');
+console.log('golden glyph match ok');
+console.log('golden palette output ok');
+console.log('golden one tone palette ok');
+console.log('golden smoothing ok');
