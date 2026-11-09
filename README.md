@@ -14,10 +14,10 @@ Run `npm run build` for a production build. The project also includes a terminal
 
 ## Repository layout
 
-- `ascii-neon.html` — standalone prototype
-- `neon/` — modular WebGPU implementation
-- `neon/src/` — browser renderer and UI source
-- `neon/terminal.mjs` — terminal player
-- `neon/offline.mjs` — offline export pipeline
+- `ascii-neon.html`: standalone prototype
+- `neon/`: modular WebGPU implementation
+- `neon/src/`: browser renderer and UI source
+- `neon/terminal.mjs`: terminal player
+- `neon/offline.mjs`: offline export pipeline
 
 See [`neon/README.md`](neon/README.md) for installation details, usage, shortcuts, architecture, benchmarks, and troubleshooting.
